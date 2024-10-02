@@ -38,10 +38,9 @@ public class Account {
     public void deposit(double amount) {
         balance += amount;
     }
-
-    @Override
     public String toString() {
-        return "Owner of account: " + name + " " +
-                "Balance: " + balance + " sek.";
+        return "Owner of account: " + this.getName() + "." +
+                "\nBalance: " + balance + " sek. \n";
     }
-}
+
+    }

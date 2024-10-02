@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ArrayListor.iml" filepath="$PROJECT_DIR$/ArrayListor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PointList.iml" filepath="$PROJECT_DIR$/PointList.iml" />
     </modules>
   </component>
 </project>

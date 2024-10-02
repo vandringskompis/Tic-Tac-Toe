@@ -7,7 +7,7 @@ public class Main {
         ArrayList<Integer> pointsList = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
-        int sum = 0; //summan av alla poäng är 0 från start.
+        int highScore = 0; //summan av alla poäng är 0 från start.
 
 
         //While-loopen kör tills någon skriven in en bokstav istället för en siffra.
@@ -29,27 +29,27 @@ public class Main {
             }
 
             pointsList.add(points);
-            sum += points;
+            highScore += points;
         }
 
         System.out.println("Här är alla poäng: ");
 
         // For- loopen går igenom listan och vet lägger in alla poäng i points.
-        for (int points : pointsList) {
-            System.out.print(points + " ");
+        for (int point : pointsList) {
+            System.out.print(point + " ");
         }
         System.out.println();
 
         if (!pointsList.isEmpty()) {
 
             //Räknar ut vad medelvärdet är av alla poäng. Summman av alla poäng delat med antalet inmatningar av poäng.
-            double average = (double) sum / pointsList.size();
+            double average = (double) highScore / pointsList.size();
             System.out.println("Medelvärdet är: " + average);
 
 
             // Med Collections.max hittar vi den högsta poängen i listan.
-            int biggest = Collections.max(pointsList);
-            System.out.println("Högsta poäng: " + biggest);
+            int highestScore = Collections.max(pointsList);
+            System.out.println("Högsta poäng: " + highestScore);
         } else {
             System.out.println("Inga poäng angavs");
         }

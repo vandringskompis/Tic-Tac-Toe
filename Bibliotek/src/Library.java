@@ -1,5 +1,7 @@
 import java.awt.print.Book;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 
 public class Library {
     //Skapar en lista att spara alla böcker i.
@@ -11,6 +13,7 @@ public class Library {
 
         //boklistan.läggTill(Ny bok skapas)
         bookList.add(newBook);
+
     }
 
     //Ändrar bokens tillgänglighet om boken finns tillgänglig och användaren vill låna den.
