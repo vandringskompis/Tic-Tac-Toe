@@ -27,3 +27,9 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# Ignorera alla filer i Java.grunder-mappen
+   Desktop/MobilApp/Java.grunder/*
+
+   # Undantag: behåll viktigfil.java
+   !Desktop/MobilApp/Java.grunder/Tic-tac-toe
