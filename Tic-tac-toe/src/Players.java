@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-//uds
+//udsz
 public class Players {
 
     //Add arrayList to add players to.
