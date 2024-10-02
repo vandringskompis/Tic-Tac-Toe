@@ -6,7 +6,7 @@ public class Main {
         GameBoard gameBoard = new GameBoard();
         Players players = new Players();
 
-        System.out.println("\n" + "Welcome to Tic-Tac-Toe" + "\n");
+        System.out.println("\nc" + "Welcome to Tic-Tac-Toe" + "\n");
         players.addPlayers();
         gameBoard.printGameBoard();
         }
