@@ -1,5 +1,5 @@
 public class GameBoard {
-//ydszgd
+//ydszgds
 
     public void printGameBoard() {
         System.out.println("  " + " 0 " + " | " + "0" + " | " + "0" + "\n" + " ---+---+---" + "\n" +
