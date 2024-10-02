@@ -5,9 +5,15 @@ public class Main {
 
         GameBoard gameBoard = new GameBoard();
         Players players = new Players();
-//Funkarfunkars
-        System.out.println("\nc" + "Welcome to Tic-Tac-Toe" + "\n");
+
+        //Welcome message is printed out in terminal.
+        System.out.println("\n" + "Welcome to Tic-Tac-Toe" + "\n");
+
+        //Method that add 2 player to the game.
         players.addPlayers();
+
         gameBoard.printGameBoard();
+
+
         }
     }
