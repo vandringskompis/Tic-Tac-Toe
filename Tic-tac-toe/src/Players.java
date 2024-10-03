@@ -31,6 +31,7 @@ public class Players {
             System.out.println("\n" + "Welcome " + player1 + " and " + player2 + "! \n" +
                     "Let´s begin!" + "\n");
         }
+
     }
 }
 
