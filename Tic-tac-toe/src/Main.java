@@ -12,10 +12,10 @@ public class Main {
         //Method that add 2 player to the game.
         players.addPlayers();
 
-       playGame.numberGameBoard();
+        playGame.numberGameBoard();
 
         playGame.addXO();
 
 
-        }
     }
+}
