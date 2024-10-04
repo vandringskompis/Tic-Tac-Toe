@@ -135,7 +135,7 @@ public class PlayGame {
         }
     }
 
-    public boolean checkWinner(String XorO) {
+    public boolean checkWinner(String marker) {
         for (int[] combination : winningCombinations) {
             // Checks so the slots are NOT null.
             if (board.xoBoardSlots[combination[0]] != null &&
@@ -143,9 +143,9 @@ public class PlayGame {
                     board.xoBoardSlots[combination[2]] != null) {
 
                 // Check if player 1 has a winning combination.
-                if (board.xoBoardSlots[combination[0]].equals(XorO) &&
-                        board.xoBoardSlots[combination[1]].equals(XorO) &&
-                        board.xoBoardSlots[combination[2]].equals(XorO))
+                if (board.xoBoardSlots[combination[0]].equals(marker) &&
+                        board.xoBoardSlots[combination[1]].equals(marker) &&
+                        board.xoBoardSlots[combination[2]].equals(marker))
                     return true;
             }
         }
