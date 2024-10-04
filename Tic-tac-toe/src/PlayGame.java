@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class PlayGame {
 
-
     Players players = new Players();
     Board board = new Board();
 
@@ -20,21 +19,25 @@ public class PlayGame {
     // Method to add an X or an O to the game board.
     public void gamePlay() {
 
+        //Welcome message is printed out in terminal.
+        System.out.println("\n" + "Welcome to Tic-Tac-Toe!" + "\n");
+
         //Metod från Class Players that adds two players to the game.
         players.addPlayers();
 
         // Prints the board with numbers to show the players which number sits att which place.
         board.numberGameBoard();
 
+        //Boolean that makes it possible to change to false and that way switch players.
         boolean switchPlayer = true;
 
         while (running) {
-
 
             if (switchPlayer) {
 
                 System.out.println(players.getPlayer1Name() + ": Choose a number between 0-8!");
 
+                //First player choose a number between 0-8. try/catch to catch any symbol that isn´t 0-8.
                 try {
                     number = scanner.nextInt();
                     if (number < 0 || number > 8) {
@@ -48,24 +51,29 @@ public class PlayGame {
                         board.xoBoardSlots[number] = "X";
                         board.printGameBoard();
 
+                        //Check if the latest X made player 1 win. If so, reset the game and continue to play.
                         if (checkWinner("X")) {
-                            System.out.println("Player 1 is the winner! Let's play again! \n");
+                            System.out.println(players.getPlayer1Name() + " is the winner! Let's play again! \n");
                             resetGame();
                         }
 
+                        //If slot is NOT empty, let player choose a new number.
                     } else {
                         System.out.println("Number is unavailable, choose another number.");
                         board.printGameBoard();
                         continue;
                     }
+                    //If player choose a symbol that is NOT a number. Error message. Let player choose a new number.
                 } catch (InputMismatchException e) {
                     System.out.println("That is not a number. Please choose a number between 0-8!");
                     scanner.nextLine();
                     continue;
                 }
 
+                //Check if 9 slots have been filled without a winner.
                 checkTie();
 
+                //Switch players. Now it´s player 2´s turn.
                 switchPlayer = !switchPlayer;
 
             } else {
@@ -88,7 +96,7 @@ public class PlayGame {
                                 printGameBoard();
 
                         if (checkWinner("O")) {
-                            System.out.println("Player 2 is the winner! Let's play again!\n");
+                            System.out.println(players.getPlayer2Name() + " is the winner! Let's play again!\n");
                             resetGame();
 
                         }
@@ -142,7 +150,7 @@ public class PlayGame {
                     board.xoBoardSlots[combination[1]] != null &&
                     board.xoBoardSlots[combination[2]] != null) {
 
-                // Check if player 1 has a winning combination.
+                // Check which player has a winning combination.
                 if (board.xoBoardSlots[combination[0]].equals(marker) &&
                         board.xoBoardSlots[combination[1]].equals(marker) &&
                         board.xoBoardSlots[combination[2]].equals(marker))
