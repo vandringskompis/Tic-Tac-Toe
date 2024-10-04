@@ -1,13 +1,13 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class PlayGame {
 
     Players players = new Players();
+    Board board = new Board();
 
     Scanner scanner = new Scanner(System.in);
 
-    // Array where the "X" and "O" will be stored.
-    String[] xoBoardSlots = new String[9];
 
     // Off/ON-switch for while-loop. When running = true = ON, when running = false = OFF.
     boolean running = true;
@@ -23,104 +23,114 @@ public class PlayGame {
         players.addPlayers();
 
         // Prints the board with numbers to show the players which number sits att which place.
-        numberGameBoard();
+        board.numberGameBoard();
 
+        boolean switchPlayer = true;
 
         while (running) {
-            //Loop through the different winning combinations to see if there is a winner.
 
-            System.out.println(players.getPlayer1Name() + ": Choose a number between 0-8!");
-            int number = scanner.nextInt();
 
-            // Add an "X" on chosen square if the chosen square is null (empty) and the input number is between 0-8.
-            if (number >= 0 && number < 9 && xoBoardSlots[number] == null) {
-                xoBoardSlots[number] = "X";
-                printGameBoard();
+            int number = -1;
+            if (switchPlayer) {
 
-                for (int[] combination : winningCombinations) {
-                    // Checks so the slots are NOT null.
-                    if (xoBoardSlots[combination[0]] != null &&
-                            xoBoardSlots[combination[1]] != null &&
-                            xoBoardSlots[combination[2]] != null) {
+                System.out.println(players.getPlayer1Name() + ": Choose a number between 0-8!");
 
-                        // Check if player 1 has a winning combination.
-                        if (xoBoardSlots[combination[0]].equals("X") &&
-                                xoBoardSlots[combination[1]].equals("X") &&
-                                xoBoardSlots[combination[2]].equals("X")) {
-                            System.out.println("Player 1 is the winner! Let's play again!");
-                            resetGame();
+                try {
+                    number = scanner.nextInt();
 
-                        }
+                    if (number < 0 || number > 8) {
+                        System.out.println("Not a number between 0-8. Please choose again :)");
+                        scanner.nextLine();
+                        continue;
                     }
+
+                    // Add an "X" on chosen square if the chosen square is null (empty) and the input number is between 0-8.
+                    if (board.xoBoardSlots[number] == null) {
+                        board.xoBoardSlots[number] = "X";
+                        board.printGameBoard();
+
+                        for (int[] combination : winningCombinations) {
+                            // Checks so the slots are NOT null.
+                            if (board.xoBoardSlots[combination[0]] != null &&
+                                    board.xoBoardSlots[combination[1]] != null &&
+                                    board.xoBoardSlots[combination[2]] != null) {
+
+                                // Check if player 1 has a winning combination.
+                                if (board.xoBoardSlots[combination[0]].equals("X") &&
+                                        board.xoBoardSlots[combination[1]].equals("X") &&
+                                        board.xoBoardSlots[combination[2]].equals("X")) {
+                                    System.out.println("Player 1 is the winner! Let's play again!");
+                                    resetGame();
+
+                                }
+                            }
+                        }
+
+                    } else {
+                        System.out.println("Number is unavailable, choose another number.");
+                        board.printGameBoard();
+                        continue;
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("That is not a number. Please choose a number between 0-8!");
+                    scanner.nextLine();
+                    continue;
                 }
+                checkTie();
+                switchPlayer = !switchPlayer;
 
             } else {
-                System.out.println("Number is unavailable, choose another number.");
-                printGameBoard();
-                continue;
-            }
-            checkTie();
 
+                System.out.println(players.getPlayer2Name() + ": Choose a number between 0-8!");
 
-            System.out.println(players.getPlayer2Name() + ": Choose a number between 0-8!");
-            number = scanner.nextInt();
+                try {
 
-            // Add an "O" on chosen square if the chosen square is null (empty) and the input number is between 0-8.
-            if (number >= 0 && number < 9 && xoBoardSlots[number] == null) {
-                xoBoardSlots[number] = "O";
-                printGameBoard();
+                    number = scanner.nextInt();
+                    if (number < 0 || number > 8) {
+                        System.out.println("Not a number between 0-8. Please choose again :)");
+                        scanner.nextLine();
+                        continue;
+                    }
+                    // Add an "O" on chosen square if the chosen square is null (empty) and the input number is between 0-8.
+                    if (board.xoBoardSlots[number] == null) {
+                        board.xoBoardSlots[number] = "O";
+                        board.printGameBoard();
 
-                for (int[] combination : winningCombinations) {
-                    if (xoBoardSlots[combination[0]] != null &&
-                            xoBoardSlots[combination[1]] != null &&
-                            xoBoardSlots[combination[2]] != null) {
+                        for (int[] combination : winningCombinations) {
+                            if (board.xoBoardSlots[combination[0]] != null &&
+                                    board.xoBoardSlots[combination[1]] != null &&
+                                    board.xoBoardSlots[combination[2]] != null) {
 
-                        if (xoBoardSlots[combination[0]].equals("O") &&
-                                xoBoardSlots[combination[1]].equals("O") &&
-                                xoBoardSlots[combination[2]].equals("O")) {
-                            System.out.println("Player 2 is the winner! Let´s play again!");
-                            resetGame();
+                                if (board.xoBoardSlots[combination[0]].equals("O") &&
+                                        board.xoBoardSlots[combination[1]].equals("O") &&
+                                        board.xoBoardSlots[combination[2]].equals("O")) {
+                                    System.out.println("Player 2 is the winner! Let´s play again!");
+                                    resetGame();
+
+                                }
+                            }
                         }
-
-
+                    } else {
+                        System.out.println("Number is unavailable, choose another number.");
+                        continue;
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("That is not a number. Please choose a number between 0-8!");
+                    scanner.nextLine();
+                    continue;
                 }
+
+                checkTie();
+                switchPlayer = !switchPlayer;
             }
-        } else{
-            System.out.println("Number is unavailable, choose another number.");
         }
-        checkTie();
-
-
-        }
-
-    }
-
-    public void numberGameBoard() {
-
-        System.out.println("Here is the game board. You will have to choose a number between 0-8.");
-        System.out.println("Down below you will see the placement of each number. Do well to remember the number placements. Good luck!");
-        System.out.println(" ");
-        System.out.println("  " + "0" + " | " + "1" + " | " + "2");
-        System.out.println(" ---+---+---");
-        System.out.println("  " + "3" + " | " + "4" + " | " + "5");
-        System.out.println("---+---+---");
-        System.out.println("  " + "6" + " | " + "7" + " | " + "8");
-    }
-
-    // If xoBoardSlots[i] is empty then either an X or an O will be placed at that spot. If the spot is null then it will look empty in terminal. (ternery/ternär operator used)
-    public void printGameBoard() {
-        System.out.println("  " + ((xoBoardSlots[0] == null) ? " " : xoBoardSlots[0]) + " | " + ((xoBoardSlots[1] == null) ? " " : xoBoardSlots[1]) + " | " + ((xoBoardSlots[2] == null) ? " " : xoBoardSlots[2]));
-        System.out.println(" ---+---+---");
-        System.out.println("  " + ((xoBoardSlots[3] == null) ? " " : xoBoardSlots[3]) + " | " + ((xoBoardSlots[4] == null) ? " " : xoBoardSlots[4]) + " | " + ((xoBoardSlots[5] == null) ? " " : xoBoardSlots[5]));
-        System.out.println("---+---+---");
-        System.out.println("  " + ((xoBoardSlots[6] == null) ? " " : xoBoardSlots[6]) + " | " + ((xoBoardSlots[7] == null) ? " " : xoBoardSlots[7]) + " | " + ((xoBoardSlots[8] == null) ? " " : xoBoardSlots[8]));
     }
 
     public boolean checkTie() {
         boolean boardIsFull = true;
 
         for (int i = 0; i < 9; i++) {
-            if (xoBoardSlots[i] == null) {
+            if (board.xoBoardSlots[i] == null) {
                 boardIsFull = false;
                 break;
             }
@@ -137,8 +147,7 @@ public class PlayGame {
 
     public void resetGame() {
         for (int i = 0; i < 9; i++) {
-            xoBoardSlots[i] = null;
+            board.xoBoardSlots[i] = null;
         }
     }
-
 }
