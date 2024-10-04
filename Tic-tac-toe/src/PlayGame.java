@@ -29,7 +29,7 @@ public class PlayGame {
         while (running) {
             //Loop through the different winning combinations to see if there is a winner.
 
-            System.out.println(players.getPlayer1Name() + ": Choose a number between 0-8.");
+            System.out.println(players.getPlayer1Name() + ": Choose a number between 0-8!");
             int number = scanner.nextInt();
 
             // Add an "X" on chosen square if the chosen square is null (empty) and the input number is between 0-8.
@@ -63,7 +63,7 @@ public class PlayGame {
             checkTie();
 
 
-            System.out.println(players.getPlayer2Name() + ": Skriv in en siffra");
+            System.out.println(players.getPlayer2Name() + ": Choose a number between 0-8!");
             number = scanner.nextInt();
 
             // Add an "O" on chosen square if the chosen square is null (empty) and the input number is between 0-8.
