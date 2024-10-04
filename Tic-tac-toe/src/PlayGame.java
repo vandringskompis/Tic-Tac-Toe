@@ -14,6 +14,8 @@ public class PlayGame {
 
     //All winning combinations in a 2D-array.
     int[][] winningCombinations = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
+
+    //Start on an invalid value.
     int number = -1;
 
     // Method to add an X or an O to the game board.
@@ -35,7 +37,7 @@ public class PlayGame {
 
             if (switchPlayer) {
 
-                System.out.println(players.getPlayer1Name() + ": Choose a number between 0-8!");
+                System.out.println(players.getPlayer1Name() + ": You are playing with X-markers. Choose a number between 0-8!");
 
                 //First player choose a number between 0-8. try/catch to catch any symbol that isn´t 0-8.
                 try {
@@ -78,7 +80,7 @@ public class PlayGame {
 
             } else {
 
-                System.out.println(players.getPlayer2Name() + ": Choose a number between 0-8!");
+                System.out.println(players.getPlayer2Name() + ": You are playing with O-markers. Choose a number between 0-8!");
 
                 try {
 
@@ -119,23 +121,18 @@ public class PlayGame {
     }
 
     public boolean checkTie() {
-        boolean boardIsFull = true;
 
         for (int i = 0; i < 9; i++) {
             if (board.xoBoardSlots[i] == null) {
-                boardIsFull = false;
-                break;
+                return false;
             }
         }
-
-        if (boardIsFull) {
-            System.out.println("It´s a tie! Let´s play again!");
+            System.out.println("It´s a tie! Let´s play again! \n");
             resetGame();
             return true;
 
         }
-        return false;
-    }
+
 
     public void resetGame() {
         for (int i = 0; i < 9; i++) {
