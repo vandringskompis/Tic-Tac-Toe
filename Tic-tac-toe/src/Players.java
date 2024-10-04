@@ -18,7 +18,6 @@ public class Players {
         Scanner scanner = new Scanner(System.in);
 
         boolean running = true;
-
         while (running) {
 
             System.out.println("What is the name of player 1?");

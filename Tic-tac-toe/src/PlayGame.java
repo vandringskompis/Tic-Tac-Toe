@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class PlayGame {
 
+
     Players players = new Players();
     Board board = new Board();
 
@@ -48,7 +49,7 @@ public class PlayGame {
                         board.printGameBoard();
 
                         if (checkWinner("X")) {
-                            System.out.println("Player 1 is the winner! Let's play again!");
+                            System.out.println("Player 1 is the winner! Let's play again! \n");
                             resetGame();
                         }
 
@@ -87,7 +88,7 @@ public class PlayGame {
                                 printGameBoard();
 
                         if (checkWinner("O")) {
-                            System.out.println("Player 2 is the winner! Let's play again!");
+                            System.out.println("Player 2 is the winner! Let's play again!\n");
                             resetGame();
 
                         }
