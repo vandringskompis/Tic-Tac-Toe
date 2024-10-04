@@ -2,9 +2,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Players {
+   private String player1Name;
+   private String player2Name;
 
-    //Add arrayList to add players to.
-    ArrayList<String> players = new ArrayList<>();
+    public String getPlayer1Name() {
+        return player1Name;
+    }
+
+    public String getPlayer2Name() {
+        return player2Name;
+    }
 
     // Method to add players. Asking what their names are and then print out a welcome message.
     public void addPlayers() {
@@ -15,20 +22,18 @@ public class Players {
         while (running) {
 
             System.out.println("What is the name of player 1?");
-            String player1 = scanner.nextLine();
-            players.add(player1);
+            player1Name = scanner.nextLine();
             System.out.println("What is the name of player 2?");
-            String player2 = scanner.nextLine();
+            player2Name = scanner.nextLine();
 
-            if (player2.equalsIgnoreCase(player1)) {
+            if (player2Name.equalsIgnoreCase(player1Name)) {
                 System.out.println("You can´t use the same name, please try again");
                 continue;
             } else {
-                players.add(player2);
                 running = false;
             }
 
-            System.out.println("\n" + "Welcome " + player1 + " and " + player2 + "! \n" +
+            System.out.println("\n" + "Welcome " + player1Name + " and " + player2Name + "! \n" +
                     "Let´s begin!" + "\n");
         }
 
