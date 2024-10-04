@@ -22,7 +22,7 @@ public class PlayGame {
         //Metod från Class Players that adds two players to the game.
         players.addPlayers();
 
-       // Prints the board with numbers to show the players which number sits att which place.
+        // Prints the board with numbers to show the players which number sits att which place.
         numberGameBoard();
 
 
@@ -48,9 +48,8 @@ public class PlayGame {
                                 xoBoardSlots[combination[1]].equals("X") &&
                                 xoBoardSlots[combination[2]].equals("X")) {
                             System.out.println("Player 1 is the winner! Let's play again!");
-                            for (int i = 0; i < 9; i++) {
-                                xoBoardSlots[i] = null;
-                            }
+                            resetGame();
+
                         }
                     }
                 }
@@ -80,17 +79,16 @@ public class PlayGame {
                                 xoBoardSlots[combination[1]].equals("O") &&
                                 xoBoardSlots[combination[2]].equals("O")) {
                             System.out.println("Player 2 is the winner! Let´s play again!");
-                            for (int i = 0; i < 9; i++) {
-                                xoBoardSlots[i] = null;
-                            }
-
+                            resetGame();
                         }
-                    }
+
+
                 }
-            } else {
-                System.out.println("Number is unavailable, choose another number.");
             }
-            checkTie();
+        } else{
+            System.out.println("Number is unavailable, choose another number.");
+        }
+        checkTie();
 
 
         }
@@ -118,13 +116,29 @@ public class PlayGame {
         System.out.println("  " + ((xoBoardSlots[6] == null) ? " " : xoBoardSlots[6]) + " | " + ((xoBoardSlots[7] == null) ? " " : xoBoardSlots[7]) + " | " + ((xoBoardSlots[8] == null) ? " " : xoBoardSlots[8]));
     }
 
-    public void checkTie() {
+    public boolean checkTie() {
+        boolean boardIsFull = true;
 
+        for (int i = 0; i < 9; i++) {
+            if (xoBoardSlots[i] == null) {
+                boardIsFull = false;
+                break;
+            }
+        }
 
+        if (boardIsFull) {
+            System.out.println("It´s a tie! Let´s play again!");
+            resetGame();
+            return true;
+
+        }
+        return false;
+    }
+
+    public void resetGame() {
+        for (int i = 0; i < 9; i++) {
+            xoBoardSlots[i] = null;
+        }
     }
 
 }
-
-
-
-
