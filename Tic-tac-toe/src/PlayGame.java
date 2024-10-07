@@ -17,6 +17,7 @@ public class PlayGame {
     //Start on an invalid value.
     int number = -1;
 
+    // Count how many times player 1 and player 2 wins.
     byte winnerCount1 = 0;
     byte winnerCount2 = 0;
 
@@ -39,17 +40,18 @@ public class PlayGame {
 
             if (switchPlayer) {
 
-                System.out.println(players.getPlayer1Name() + ": You are playing with X-markers. Choose a number between 0-8!");
+                System.out.println(players.getPlayer1Name() + ": You are playing with X-markers. Choose a number between 1-9!");
 
-                //First player choose a number between 0-8. try/catch to catch any symbol that isn´t 0-8.
+                //First player choose a number between 1-9. try/catch to catch any symbol that isn´t 1-9.
                 try {
                     number = scanner.nextInt();
-                    if (number < 0 || number > 8) {
-                        System.out.println("Not a number between 0-8. Please choose again :)");
+                    if (number < 1 || number > 9) {
+                        System.out.println("Not a number between 1-9. Please choose again :)");
                         scanner.nextLine();
                         continue;
                     }
 
+                    number = number -1;
                     // Add an "X" on chosen square if the chosen square is null (empty) and the input number is between 0-8.
                     if (board.xoBoardSlots[number] == null) {
                         board.xoBoardSlots[number] = "X";
@@ -72,7 +74,7 @@ public class PlayGame {
                     }
                     //If player choose a symbol that is NOT a number. Error message. Let player choose a new number.
                 } catch (InputMismatchException e) {
-                    System.out.println("That is not a number. Please choose a number between 0-8!");
+                    System.out.println("That is not a number. Please choose a number between 1-9!");
                     scanner.nextLine();
                     continue;
                 }
@@ -85,17 +87,19 @@ public class PlayGame {
 
                 //else = (if switchPlayer = false (!switchPlayer) then player 2 is playing).
             } else {
-                System.out.println(players.getPlayer2Name() + ": You are playing with O-markers. Choose a number between 0-8!");
+                System.out.println(players.getPlayer2Name() + ": You are playing with O-markers. Choose a number between 1-9!");
 
                 try {
 
                     number = scanner.nextInt();
-                    if (number < 0 || number > 8) {
-                        System.out.println("Not a number between 0-8. Please choose again :)");
+                    if (number < 1 || number > 9) {
+                        System.out.println("Not a number between 1-9. Please choose again :)");
                         scanner.nextLine();
                         continue;
                     }
-                    // Add an "O" on chosen square if the chosen square is null (empty) and the input number is between 0-8.
+                    // Add an "O" on chosen square if the chosen square is null (empty) and the input number is between 1-9.
+
+                    number = number -1;
                     if (board.xoBoardSlots[number] == null) {
                         board.xoBoardSlots[number] = "O";
                         board.printGameBoard();
@@ -113,7 +117,7 @@ public class PlayGame {
                         continue;
                     }
                 } catch (InputMismatchException e) {
-                    System.out.println("That is not a number. Please choose a number between 0-8!");
+                    System.out.println("That is not a number. Please choose a number between 1-9!");
                     scanner.nextLine();
                     continue;
                 }
@@ -143,7 +147,7 @@ public class PlayGame {
             board.xoBoardSlots[i] = null;
         }
     }
-
+    //Checks if any of the combinations in the 2D-array winningCombinations if full, and if so, check if it has only X or O in it.
     public boolean checkWinner(String marker) {
         for (int[] combination : winningCombinations) {
             // Checks so the slots are NOT null.
