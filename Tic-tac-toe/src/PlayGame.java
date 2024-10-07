@@ -8,7 +8,6 @@ public class PlayGame {
 
     Scanner scanner = new Scanner(System.in);
 
-
     // Off/ON-switch for while-loop. When running = true = ON, when running = false = OFF.
     boolean running = true;
 
@@ -17,6 +16,9 @@ public class PlayGame {
 
     //Start on an invalid value.
     int number = -1;
+
+    byte winnerCount1 = 0;
+    byte winnerCount2 = 0;
 
     // Method to add an X or an O to the game board.
     public void gamePlay() {
@@ -56,6 +58,9 @@ public class PlayGame {
                         //Check if the latest X made player 1 win. If so, reset the game and continue to play.
                         if (checkWinner("X")) {
                             System.out.println(players.getPlayer1Name() + " is the winner! Let's play again! \n");
+                            winnerCount1++;
+                            System.out.println("Number of times " + players.getPlayer1Name() + " has won: "  + winnerCount1 + "!");
+                            System.out.println("Number of times " + players.getPlayer2Name() + " has won: "  + winnerCount2 + "! \n");
                             resetGame();
                         }
 
@@ -78,8 +83,8 @@ public class PlayGame {
                 //Switch players. Now it´s player 2´s turn.
                 switchPlayer = !switchPlayer;
 
+                //else = (if switchPlayer = false (!switchPlayer) then player 2 is playing).
             } else {
-
                 System.out.println(players.getPlayer2Name() + ": You are playing with O-markers. Choose a number between 0-8!");
 
                 try {
@@ -93,28 +98,28 @@ public class PlayGame {
                     // Add an "O" on chosen square if the chosen square is null (empty) and the input number is between 0-8.
                     if (board.xoBoardSlots[number] == null) {
                         board.xoBoardSlots[number] = "O";
-                        board.
-
-                                printGameBoard();
+                        board.printGameBoard();
 
                         if (checkWinner("O")) {
                             System.out.println(players.getPlayer2Name() + " is the winner! Let's play again!\n");
+                            winnerCount2++;
+                            System.out.println("Number of times " + players.getPlayer1Name() + " has won: "  + winnerCount1 + "!");
+                            System.out.println("Number of times " + players.getPlayer2Name() + " has won: "  + winnerCount2 + "! \n");
                             resetGame();
-
                         }
 
                     } else {
                         System.out.println("Number is unavailable, choose another number.");
                         continue;
                     }
-                } catch (
-                        InputMismatchException e) {
+                } catch (InputMismatchException e) {
                     System.out.println("That is not a number. Please choose a number between 0-8!");
                     scanner.nextLine();
                     continue;
                 }
                 checkTie();
 
+                //Changes player.
                 switchPlayer = !switchPlayer;
             }
         }
@@ -132,7 +137,6 @@ public class PlayGame {
             return true;
 
         }
-
 
     public void resetGame() {
         for (int i = 0; i < 9; i++) {
