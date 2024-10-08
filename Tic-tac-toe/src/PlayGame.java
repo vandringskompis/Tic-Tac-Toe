@@ -21,6 +21,7 @@ public class PlayGame {
     // Count how many times player 1 and player 2 wins.
     int winnerCount1 = 0;
     int winnerCount2 = 0;
+    int tieCount = 0;
 
     //
     public void gamePlay() {
@@ -92,8 +93,7 @@ public class PlayGame {
                         } else {
                             winnerCount2++;
                         }
-                        System.out.println("Number of times " + player1.getName() + " has won: " + winnerCount1 + "!");
-                        System.out.println("Number of times " + player2.getName() + " has won: " + winnerCount2 + "! \n");
+                       countMessage();
                         board.resetGame();
                     }
 
@@ -112,6 +112,7 @@ public class PlayGame {
 
             checkTie();
 
+
             //Switch players
             switchPlayer = !switchPlayer;
 
@@ -126,7 +127,9 @@ public class PlayGame {
             }
         }
         System.out.println("It´s a tie! Let´s play again! \n");
+        tieCount++;
         board.resetGame();
+        countMessage();
         return true;
     }
 
@@ -146,5 +149,11 @@ public class PlayGame {
             }
         }
         return false;
+    }
+
+    public void countMessage() {
+        System.out.println("Number of times " + player1.getName() + " has won: " + winnerCount1 + "!");
+        System.out.println("Number of times " + player2.getName() + " has won: " + winnerCount2 + "!");
+        System.out.println("Number of times there has been a tie: " + tieCount + "\n");
     }
 }
