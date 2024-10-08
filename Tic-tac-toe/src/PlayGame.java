@@ -19,8 +19,8 @@ public class PlayGame {
     private Players player2;
 
     // Count how many times player 1 and player 2 wins.
-    byte winnerCount1 = 0;
-    byte winnerCount2 = 0;
+    int winnerCount1 = 0;
+    int winnerCount2 = 0;
 
     //
     public void gamePlay() {
@@ -110,15 +110,14 @@ public class PlayGame {
                 continue;
             }
 
-            //Check if 9 slots have been filled without a winner.
             checkTie();
 
-            //Switch players. Now it´s player 2´s turn.
+            //Switch players
             switchPlayer = !switchPlayer;
 
         }
     }
-
+ // Checks if all slots have been filled and announce a tie. checkTie lies after checkWin() to make sure game doesn´t miss a win.
     public boolean checkTie() {
 
         for (int i = 0; i < 9; i++) {
@@ -129,7 +128,6 @@ public class PlayGame {
         System.out.println("It´s a tie! Let´s play again! \n");
         board.resetGame();
         return true;
-
     }
 
     //Checks if any of the combinations in the 2D-array winningCombinations if full, and if so, check if it has only X or O in it.
@@ -149,5 +147,4 @@ public class PlayGame {
         }
         return false;
     }
-
 }
