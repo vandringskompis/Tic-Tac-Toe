@@ -25,6 +25,7 @@ public class Players {
             System.out.println("What is the name of player 2?");
             player2Name = scanner.nextLine();
 
+            //Check so player 1 and player 2 doesn´t have the same name. If they have different name, the while-loop stops.
             if (player2Name.equalsIgnoreCase(player1Name)) {
                 System.out.println("You can´t use the same name, please try again");
                 continue;
@@ -32,6 +33,7 @@ public class Players {
                 running = false;
             }
 
+            //Welcome message with player 1 and player 2´s names.
             System.out.println("\n" + "Welcome " + player1Name + " and " + player2Name + "! \n" +
                     "Let´s begin!" + "\n");
         }

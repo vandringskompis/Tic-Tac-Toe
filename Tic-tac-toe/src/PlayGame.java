@@ -21,7 +21,7 @@ public class PlayGame {
     byte winnerCount1 = 0;
     byte winnerCount2 = 0;
 
-    // Method to add an X or an O to the game board.
+    //
     public void gamePlay() {
 
         //Welcome message is printed out in terminal.
@@ -52,7 +52,7 @@ public class PlayGame {
                     }
 
                     number = number -1;
-                    // Add an "X" on chosen square if the chosen square is null (empty) and the input number is between 0-8.
+                    // Add an "X" on chosen square if the chosen square is null (empty) and the input number is between 1-9.
                     if (board.xoBoardSlots[number] == null) {
                         board.xoBoardSlots[number] = "X";
                         board.printGameBoard();
