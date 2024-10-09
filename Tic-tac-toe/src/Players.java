@@ -10,9 +10,6 @@ public class Players {
         this.markers = markers;
     }
 
-    public Players() {
-    }
-
     public String getName() {
         return name;
     }

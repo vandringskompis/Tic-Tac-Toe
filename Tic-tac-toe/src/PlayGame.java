@@ -25,10 +25,6 @@ public class PlayGame {
 
     //
     public void gamePlay() {
-
-        //Welcome message is printed out in terminal.
-        System.out.println("\n" + "Welcome to Tic-Tac-Toe!" + "\n");
-
         Scanner scanner = new Scanner(System.in);
 
         while (isRunning) {
@@ -41,7 +37,7 @@ public class PlayGame {
 
             //Check so player 1 and player 2 doesn´t have the same name. If they have different name, the while-loop stops.
             if (name1.equalsIgnoreCase(name2)) {
-                System.out.println("You can´t use the same name, please try again");
+                System.out.println("You can´t use the same name, please try again. \n");
                 continue;
             } else {
                 isRunning = false;
@@ -73,7 +69,7 @@ public class PlayGame {
             try {
                 number = scanner.nextInt();
                 if (number < 1 || number > 9) {
-                    System.out.println("Not a number between 1-9. Please choose again :)");
+                    System.out.println("Not a number between 1-9. Please choose again. \n");
                     scanner.nextLine();
                     continue;
                 }
@@ -99,13 +95,13 @@ public class PlayGame {
 
                     //If slot is NOT empty, let player choose a new number.
                 } else {
-                    System.out.println("Number is unavailable, choose another number.");
+                    System.out.println("Number is unavailable, choose another number. \n");
                     board.printGameBoard();
                     continue;
                 }
                 //If player choose a symbol that is NOT a number. Error message. Let player choose a new number.
             } catch (InputMismatchException e) {
-                System.out.println("That is not a number. Please choose a number between 1-9!");
+                System.out.println("That is not a number. Please choose a number between 1-9! \n");
                 scanner.nextLine();
                 continue;
             }
