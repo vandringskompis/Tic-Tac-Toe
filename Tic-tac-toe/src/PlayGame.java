@@ -42,6 +42,7 @@ public class PlayGame {
             } else {
                 isRunning = false;
             }
+            //create two new players. Player 1 and player 2.
             player1 = new Players(name1, "X");
             player2 = new Players(name2, "O");
 
@@ -50,7 +51,7 @@ public class PlayGame {
                     "Let´s begin!" + "\n");
         }
 
-        // Prints the board with numbers to show the players which number sits att which place.
+        // Prints the board with numbers to show the players which number sits at which place.
         board.numberGameBoard();
 
         //Boolean that makes it possible to change to false and that way switch players.

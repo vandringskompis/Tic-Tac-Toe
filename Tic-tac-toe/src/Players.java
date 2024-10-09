@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Players {
    private String name;
    private String markers;
@@ -17,8 +14,6 @@ public class Players {
     public String getMarkers() {
         return markers;
     }
-
-
 
 }
 
