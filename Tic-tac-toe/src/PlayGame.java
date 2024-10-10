@@ -5,7 +5,7 @@ public class PlayGame {
 
     Board board = new Board();
 
-    // Off/ON-switch for while-loop. When running = true = ON, when running = false = OFF.
+    // Off/ON-switch for while-loops.
     boolean running = true;
     boolean isRunning = true;
 
@@ -23,7 +23,7 @@ public class PlayGame {
     int winnerCount2 = 0;
     int tieCount = 0;
 
-    //
+    //Game-code
     public void gamePlay() {
         Scanner scanner = new Scanner(System.in);
 
@@ -109,7 +109,6 @@ public class PlayGame {
 
             checkTie();
 
-
             //Switch players
             switchPlayer = !switchPlayer;
 
@@ -138,7 +137,7 @@ public class PlayGame {
                     board.xoBoardSlots[combination[1]] != null &&
                     board.xoBoardSlots[combination[2]] != null) {
 
-                // Check which player has a winning combination.
+                // Check if the same marker is in the combination.
                 if (board.xoBoardSlots[combination[0]].equals(marker) &&
                         board.xoBoardSlots[combination[1]].equals(marker) &&
                         board.xoBoardSlots[combination[2]].equals(marker))
