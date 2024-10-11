@@ -37,7 +37,7 @@ public class PlayGame {
                 scanner.nextLine();
 
                 if (numberOfPlayers < 1 || numberOfPlayers > 2) {
-                    System.out.println("Please choose number 1 or number 2.");
+                    System.out.println("Please choose number 1 or number 2.\n");
                     continue;
                 }
 
@@ -52,6 +52,7 @@ public class PlayGame {
                         isRunning = false;
                     }
 
+                    //create player3 and player4(computer).
                     player3 = new Players(name, "X");
                     player4 = new Players("Computer", "O");
                     System.out.println("\n" + "Welcome " + player3.getName() + " and " + player4.getName() + "! \n" +
@@ -96,6 +97,7 @@ public class PlayGame {
             // currentPlayer switches in the end of loop to next player. CurrentPlayer keeps track on which player is playing now.
             Players currentPlayer;
 
+            //currentPlayer can be either player1 and 2 OR player3 and 4.
             if (player1 == null) {
                 currentPlayer = switchPlayer ? player3 : player4;
 
@@ -107,54 +109,88 @@ public class PlayGame {
             // marker is X for player 1 and O for player 2.
             String marker = currentPlayer.getMarkers();
 
-            System.out.println(currentPlayer.getName() + ": You are playing with " + marker + "-markers. Choose a number between 1-9!");
+            //ComputerPlayers moves.
+            if (currentPlayer == player4) {
 
-            //Player choose a number between 1-9. try/catch to catch any symbol that isn´t 1-9.
-            try {
-                number = scanner.nextInt();
-                if (number < 1 || number > 9) {
-                    System.out.println("Not a number between 1-9. Please choose again. \n");
+                int computerNumber;
+                boolean computerValidNumber = false;
+
+                System.out.println("Computer: You are playing with O-markers. Choose a number between 1-9!\n ");
+
+                //Computer use Math.random to "choose" a number. Checks so the number is not full in array, after enters the O-mark in array.
+                // Else it chooses a number until it finds an empty spot.
+                while (!computerValidNumber) {
+                    computerNumber = (int) (Math.random() * 9);
+                    if (board.xoBoardSlots[computerNumber] == null) {
+                        board.xoBoardSlots[computerNumber] = marker;
+                        computerValidNumber = true;
+                    }
+                }
+                //Prints where the computer put their O on the board.
+                board.printGameBoard();
+                if (checkWinner(marker)) {
+                    System.out.println(currentPlayer.getName() + " is the winner! Let's play again! \n");
+
+                    winnerCount2++;
+                    countMessage();
+                    board.resetGame();
+                }
+                    checkTie();
+
+                    //Switch players
+                    switchPlayer = !switchPlayer;
+
+
+            } else {
+                System.out.println(currentPlayer.getName() + ": You are playing with " + marker + "-markers. Choose a number between 1-9!");
+
+                //Player choose a number between 1-9. try/catch to catch any symbol that isn´t 1-9.
+                try {
+                    number = scanner.nextInt();
+                    if (number < 1 || number > 9) {
+                        System.out.println("Not a number between 1-9. Please choose again. \n");
+                        scanner.nextLine();
+                        continue;
+                    }
+
+                    number = number - 1;
+                    // Add an "X" or an "O" on chosen square if the chosen square is null (empty) and the input number is between 1-9.
+                    if (board.xoBoardSlots[number] == null) {
+                        board.xoBoardSlots[number] = marker;
+                        board.printGameBoard();
+
+                        //Check win.
+                        if (checkWinner(marker)) {
+                            System.out.println(currentPlayer.getName() + " is the winner! Let's play again! \n");
+
+                            if (currentPlayer == player1 || currentPlayer == player3) {
+                                winnerCount1++;
+                            } else {
+                                winnerCount2++;
+                            }
+                            countMessage();
+                            board.resetGame();
+                        }
+
+                        //If slot is NOT empty, let player choose a new number. Also writes out which number is not available.
+                    } else {
+                        System.out.println("The number " + (number + 1) + " is unavailable, choose another number. \n");
+                        board.printGameBoard();
+                        continue;
+                    }
+                    //If player choose a symbol that is NOT a number. Error message. Let player choose a new number.
+                } catch (InputMismatchException e) {
+                    System.out.println("That is not a number. Please choose a number between 1-9! \n");
                     scanner.nextLine();
                     continue;
                 }
 
-                number = number - 1;
-                // Add an "X" or an "O" on chosen square if the chosen square is null (empty) and the input number is between 1-9.
-                if (board.xoBoardSlots[number] == null) {
-                    board.xoBoardSlots[number] = marker;
-                    board.printGameBoard();
+                checkTie();
 
-                    //Check win.
-                    if (checkWinner(marker)) {
-                        System.out.println(currentPlayer.getName() + " is the winner! Let's play again! \n");
+                //Switch players
+                switchPlayer = !switchPlayer;
 
-                        if (currentPlayer == player1 || currentPlayer == player3) {
-                            winnerCount1++;
-                        } else {
-                            winnerCount2++;
-                        }
-                        countMessage();
-                        board.resetGame();
-                    }
-
-                    //If slot is NOT empty, let player choose a new number.
-                } else {
-                    System.out.println("Number is unavailable, choose another number. \n");
-                    board.printGameBoard();
-                    continue;
-                }
-                //If player choose a symbol that is NOT a number. Error message. Let player choose a new number.
-            } catch (InputMismatchException e) {
-                System.out.println("That is not a number. Please choose a number between 1-9! \n");
-                scanner.nextLine();
-                continue;
             }
-
-            checkTie();
-
-            //Switch players
-            switchPlayer = !switchPlayer;
-
         }
     }
 
