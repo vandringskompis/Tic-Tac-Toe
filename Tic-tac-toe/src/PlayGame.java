@@ -36,6 +36,11 @@ public class PlayGame {
                 numberOfPlayers = scanner.nextInt();
                 scanner.nextLine();
 
+                if (numberOfPlayers < 1 || numberOfPlayers > 2) {
+                    System.out.println("Please choose number 1 or number 2.");
+                    continue;
+                }
+
                 if (numberOfPlayers == 1) {
                     System.out.println("What is the name of player 1?");
                     String name = scanner.nextLine();
@@ -78,7 +83,6 @@ public class PlayGame {
             } catch (InputMismatchException e) {
                 System.out.println("That is not a number. Please choose a number between 1-9! \n");
                 scanner.nextLine();
-                continue;
             }
         }
 
