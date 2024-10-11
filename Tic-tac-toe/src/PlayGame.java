@@ -14,9 +14,12 @@ public class PlayGame {
 
     //Start on an invalid value.
     int number = -1;
+    int numberOfPlayers = -1;
 
     private Players player1;
     private Players player2;
+    private Players player3;
+    private Players player4;
 
     // Count how many times player 1 and player 2 wins.
     int winnerCount1 = 0;
@@ -28,27 +31,55 @@ public class PlayGame {
         Scanner scanner = new Scanner(System.in);
 
         while (isRunning) {
+            System.out.println("Are you 1 or 2 players?");
+            try {
+                numberOfPlayers = scanner.nextInt();
+                scanner.nextLine();
 
-            System.out.println("What is the name of player 1?");
-            String name1 = scanner.nextLine();
+                if (numberOfPlayers == 1) {
+                    System.out.println("What is the name of player 1?");
+                    String name = scanner.nextLine();
 
-            System.out.println("What is the name of player 2?");
-            String name2 = scanner.nextLine();
+                    if (name.equalsIgnoreCase("Computer")) {
+                        System.out.println("\nYou can´t use the same name, please try again.\n");
+                        continue;
+                    } else {
+                        isRunning = false;
+                    }
 
-            //Check so player 1 and player 2 doesn´t have the same name. If they have different name, the while-loop stops.
-            if (name1.equalsIgnoreCase(name2)) {
-                System.out.println("You can´t use the same name, please try again. \n");
+                    player3 = new Players(name, "X");
+                    player4 = new Players("Computer", "O");
+                    System.out.println("\n" + "Welcome " + player3.getName() + " and " + player4.getName() + "! \n" +
+                            "Let´s begin!" + "\n");
+
+
+                } else {
+                    System.out.println("What is the name of player 1?");
+                    String name1 = scanner.nextLine();
+
+                    System.out.println("What is the name of player 2?");
+                    String name2 = scanner.nextLine();
+
+                    //Check so player 1 and player 2 doesn´t have the same name. If they have different name, the while-loop stops.
+                    if (name1.equalsIgnoreCase(name2)) {
+                        System.out.println("You can´t use the same name, please try again. \n");
+                        continue;
+                    } else {
+                        isRunning = false;
+                    }
+                    //create two new players. Player 1 and player 2.
+                    player1 = new Players(name1, "X");
+                    player2 = new Players(name2, "O");
+
+                    //Welcome message with player 1 and player 2´s names.
+                    System.out.println("\n" + "Welcome " + player1.getName() + " and " + player2.getName() + "! \n" +
+                            "Let´s begin!" + "\n");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("That is not a number. Please choose a number between 1-9! \n");
+                scanner.nextLine();
                 continue;
-            } else {
-                isRunning = false;
             }
-            //create two new players. Player 1 and player 2.
-            player1 = new Players(name1, "X");
-            player2 = new Players(name2, "O");
-
-            //Welcome message with player 1 and player 2´s names.
-            System.out.println("\n" + "Welcome " + player1.getName() + " and " + player2.getName() + "! \n" +
-                    "Let´s begin!" + "\n");
         }
 
         // Prints the board with numbers to show the players which number sits at which place.
@@ -58,8 +89,16 @@ public class PlayGame {
         boolean switchPlayer = true;
 
         while (running) {
-            // currentPlayer switches in the end of loop to next player.
-            Players currentPlayer = switchPlayer ? player1 : player2;
+            // currentPlayer switches in the end of loop to next player. CurrentPlayer keeps track on which player is playing now.
+            Players currentPlayer;
+
+            if (player1 == null) {
+                currentPlayer = switchPlayer ? player3 : player4;
+
+            } else {
+
+                currentPlayer = switchPlayer ? player1 : player2;
+            }
 
             // marker is X for player 1 and O for player 2.
             String marker = currentPlayer.getMarkers();
@@ -81,16 +120,16 @@ public class PlayGame {
                     board.xoBoardSlots[number] = marker;
                     board.printGameBoard();
 
-                    //Check if the latest X made player 1 win. If so, reset the game and continue to play.
+                    //Check win.
                     if (checkWinner(marker)) {
                         System.out.println(currentPlayer.getName() + " is the winner! Let's play again! \n");
 
-                        if (currentPlayer == player1) {
+                        if (currentPlayer == player1 || currentPlayer == player3) {
                             winnerCount1++;
                         } else {
                             winnerCount2++;
                         }
-                       countMessage();
+                        countMessage();
                         board.resetGame();
                     }
 
@@ -114,7 +153,8 @@ public class PlayGame {
 
         }
     }
- // Checks if all slots have been filled and announce a tie. checkTie lies after checkWin() to make sure game doesn´t miss a win.
+
+    // Checks if all slots have been filled and announce a tie. checkTie lies after checkWin() to make sure game doesn´t miss a win.
     public boolean checkTie() {
 
         for (int i = 0; i < 9; i++) {
@@ -148,8 +188,12 @@ public class PlayGame {
     }
 
     public void countMessage() {
-        System.out.println("Number of times " + player1.getName() + " has won: " + winnerCount1 + "!");
-        System.out.println("Number of times " + player2.getName() + " has won: " + winnerCount2 + "!");
+
+        Players currentPlayers1 = (player1 == null) ? player3 : player1;
+        Players currentPlayers2 = (player2 == null) ? player4 : player2;
+
+        System.out.println("Number of times " + currentPlayers1.getName() + " has won: " + winnerCount1 + "!");
+        System.out.println("Number of times " + currentPlayers2.getName() + " has won: " + winnerCount2 + "!");
         System.out.println("Number of times there has been a tie: " + tieCount + "\n");
     }
 }
